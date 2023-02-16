@@ -33,7 +33,7 @@
   (pad "2" smd roundrect (at 1.7 1.4) (size 0.9 0.8) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.125) (tstamp 7f40bf27-240c-4814-a3a9-adee6a72a03e))
   (pad "3" smd roundrect (at 2.3 -0.5) (size 0.6 1.2) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.1666666667) (tstamp 93d0a394-fc2e-477f-a7f1-03db852f7316))
   (pad "4" smd roundrect (at -2.3 -0.5) (size 0.6 1.2) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.1666666667) (tstamp 01d95994-02c0-4096-b382-d5963ebae7b3))
-  (model "${KIPRJMOD}/../lib/model/1TS003B-2400-3500A-CT.step"
+  (model "${KIPRJMOD}/lib/model/1TS003B-2400-3500A-CT.step"
     (offset (xyz 2.3 -1.35 0))
     (scale (xyz 1 1 1))
     (rotate (xyz 0 0 -180))

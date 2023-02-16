@@ -57,7 +57,7 @@
   (pad "14" connect roundrect (at 0 16.51) (size 3 2) (layers "B.Cu" "B.Mask") (roundrect_rratio 0.15) (tstamp 2d9c8301-970c-4a64-a9ba-acfc1aff396d))
   (pad "15" connect roundrect (at 0 17.78) (size 3 2) (layers "F.Cu" "F.Mask") (roundrect_rratio 0.15) (tstamp 30014179-a162-4177-a472-1851803e15c2))
   (pad "16" connect roundrect (at 0 19.05) (size 3 2) (layers "B.Cu" "B.Mask") (roundrect_rratio 0.15) (tstamp 6d33a2ec-0c1a-49d8-9414-ee422ca59e6b))
-  (model "${KIPRJMOD}/../lib/model/IDC_Female_2x8_Edge.step"
+  (model "${KIPRJMOD}/lib/model/IDC_Female_2x8_Edge.step"
     (offset (xyz -3.5 -5.3 -4.1))
     (scale (xyz 1 1 1))
     (rotate (xyz 90 0 -90))
