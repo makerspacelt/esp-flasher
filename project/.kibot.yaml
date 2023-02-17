@@ -102,15 +102,6 @@ outputs:
       highlight_pin1: true
       layer_view: F
 
-  - name: full_bom
-    type: bom
-    options:
-      output: '../gen/bom.csv'
-      ref_separator: ','
-      csv:
-        hide_pcb_info: true
-        hide_stats_info: true
-        quote_all: true
 
   - name: lcsl_bom
     type: bom
@@ -131,14 +122,25 @@ outputs:
         hide_stats_info: true
         quote_all: true
 
+  #
+  # JLC production stoff below
+  #
+  - name: full_bom
+    type: bom
+    options:
+      output: '../gen/prod/bom.csv'
+      ref_separator: ','
+      csv:
+        hide_pcb_info: true
+        hide_stats_info: true
+        quote_all: true
 
   - name: JLCPCB_gerbers
-    comment: Gerbers compatible with JLCPCB
     type: gerber
-    dir: '../gen/gerbers'
+    dir: '../gen/prod'
     options: &gerber_options
-      exclude_edge_layer: true
-      exclude_pads_from_silkscreen: true
+      exclude_edge_layer: false
+      exclude_pads_from_silkscreen: false
       plot_sheet_reference: false
       plot_footprint_refs: true
       plot_footprint_values: true
@@ -166,9 +168,8 @@ outputs:
       - B.Paste
 
   - name: JLCPCB_drill
-    comment: Drill files compatible with JLCPCB
     type: excellon
-    dir: '../gen/gerbers'
+    dir: '../gen/prod'
     options:
       pth_and_npth_single_file: false
       pth_id: '-PTH'
@@ -177,15 +178,32 @@ outputs:
       map: gerber
       output: "%f%i.%x"
 
-  - name: JLCPCB
-    comment: ZIP file for JLCPCB
-    type: compress
-    dir: '../gen/gerbers'
+  - name: JLCPCB_netlist
+    type: netlist
+    dir: '../gen/prod'
     options:
-      output: gerbers.zip
-      files:
-        - from_output: JLCPCB_gerbers
-          dest: /
-        - from_output: JLCPCB_drill
-          dest: /
+      format: ipc
+      output: 'netlist.ipc'
+
+  - name: JLCPCB_position
+    type: position
+    dir: '../gen/prod'
+    options:
+      format: CSV
+      output: 'positions.csv'
+      separate_files_for_front_and_back: false
+      right_digits: 3
+      pre_transform: _rot_footprint
+      columns:
+        - id: Ref
+          name: 'Designator'
+        - id: PosX
+          name: 'Mid X'
+        - id: PosY
+          name: 'Mid Y'
+        - id: Side
+          name: 'Layer'
+        - id: Rot
+          name: 'Rotation'
+
 
