@@ -24,9 +24,9 @@ sed -i \
 	-e '/^.*DRILL file .* date .*$/d' \
 	./gen/prod/*.{gbr,drl}
 
-#rm -f ./gen/prod.zip
+rm -f ./gen/prod/prod.zip
 touch -cd 1970-01-01T00:00:00Z ./gen/prod/*
-zip -qjorX9 -n zip gen/prod.zip ./gen/prod
+zip -qjorX9 -n zip gen/prod/prod.zip ./gen/prod
 
 # remove garbage changes from schematics.pdf
 sed -i '/[/]CreationDate.*$/d' ./gen/schematics.pdf
