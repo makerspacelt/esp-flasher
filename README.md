@@ -10,7 +10,7 @@ Dev NOTE: before commit, run `./kibot.sh` to regenerate documentation, bom, gerb
 
 * [schematics.pdf](gen/schematics.pdf)
 * [pcb.pdf with dimensions](gen/pcb.pdf)
-* [ibom.html](gen/ibom.html)
+* [ibom.html](gen/single/ibom.html)
 
 
 ![PCB 2d front bare](gen/img_pcb_2d_front_bare.jpg)
