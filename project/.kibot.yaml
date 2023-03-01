@@ -8,9 +8,10 @@ kibot:
   version: 1
 
 preflight:
-  check_zone_fills: false
-  run_erc: false
-  run_drc: false
+  run_erc: true
+  run_drc: true
+  check_zone_fills: true
+  ignore_unconnected: false
 
 filters:
   - name: lcsc_parts
@@ -23,19 +24,19 @@ outputs:
   - name: print_sch
     type: pdf_sch_print
     options:
-      output: '../gen/schematics.pdf'
+      output: 'schematics.pdf'
 
 
   - name: pcb_print
     type: pcb_print
     options:
-      output: '../gen/pcb.pdf'
+      output: 'pcb.pdf'
       force_edge_cuts: true
       keep_temporal_files: false
       plot_sheet_reference: false
       color_theme: '_builtin_default'
       pages:
-        - sheet: 'Assembly'
+        - sheet: 'Drawings'
           scaling: 4
           layers: 
           - layer: F.Mask
@@ -46,26 +47,26 @@ outputs:
             color: '#444444'
 
 
-  - name: pcb_image_2d_front
+  - name: pcb_img_2d_front
     type: pcbdraw
     options:
-      output: '../gen/img_pcb_2d_front_bare.jpg'
+      output: 'img_pcb_2d_front_bare.jpg'
       format: jpg
       dpi: 600
 
-  - name: pcb_image_2d_back
+  - name: pcb_img_2d_back
     type: pcbdraw
     options:
-      output: '../gen/img_pcb_2d_back_bare.jpg'
+      output: 'img_pcb_2d_back_bare.jpg'
       format: jpg
       dpi: 600
       bottom: true
 
 
-  - name: pcb_image_3d_front
+  - name: pcb_img_3d_front
     type: render_3d
     options:
-      output: '../gen/img_pcb_3d_front.png'
+      output: 'img_pcb_3d_front.png'
       orthographic: true
       download: true
       solder_mask: '#104020'
@@ -76,10 +77,10 @@ outputs:
       zoom: 3
 
 
-  - name: pcb_image_3d_main
+  - name: pcb_img_3d_main
     type: render_3d
     options:
-      output: '../gen/img_pcb_3d_main.png'
+      output: 'img_pcb_3d_main.png'
       download: true
       rotate_x: 5
       rotate_z: 15
@@ -94,10 +95,11 @@ outputs:
       zoom: 4
 
 
-  - name: ibom_html
+  - name: ibom
     type: ibom
+    run_by_default: false
     options:
-      output: '../gen/bom_ibom.html'
+      output: 'ibom.html'
       no_compression: true
       highlight_pin1: true
       layer_view: F
@@ -106,7 +108,7 @@ outputs:
   - name: lcsl_bom
     type: bom
     options:
-      output: '../gen/bom_lcsc.csv'
+      output: 'bom_lcsc.csv'
       ref_separator: ','
       exclude_filter: lcsc_parts
       columns:
@@ -122,22 +124,81 @@ outputs:
         hide_stats_info: true
         quote_all: true
 
-  #
-  # JLC production stoff below
-  #
+
   - name: full_bom
     type: bom
     options:
-      output: '../gen/prod/bom.csv'
+      output: 'bom.csv'
       ref_separator: ','
       csv:
         hide_pcb_info: true
         hide_stats_info: true
         quote_all: true
 
-  - name: JLCPCB_gerbers
+
+  - name: panelize
+    type: panelize
+    run_by_default: false
+    options:
+      output: '%i.%x'
+      create_preview: true
+      configs:
+      - layout:
+          type: grid
+          rows: 2
+          cols: 3
+          space: 3mm
+          alternation: rows
+          hbackbone: 20mm
+          hbonecut: false
+          rename_net: 'brd{n}-{orig}'
+          rename_ref: '{orig}'
+      - framing:
+          type: railslr
+          mintotalheight: 100mm
+          mintotalwidth: 100mm
+          cuts: both
+          fillet: 2mm
+      - tabs:
+          type: fixed
+          width: 18mm
+          vcount: 1
+          hcount: 0
+      - cuts:
+          type: mousebites
+          offset: -0.5
+          drill: 0.5mm
+          spacing: 1mm
+          prolong: 1mm
+      - copperfill:
+          type: solid
+      - post:
+          mill_radius: 1mm
+          copperfill: true
+          refill_zones: true
+      - source:
+          type: auto
+          tolerance: 3mm
+      - text:
+          type: simple
+          text: "Layers: 2\nDelivery Format: Panel By Customer\nPanel Format: Column:3 Row:2\nPCB Thickness: 0.8mm\nSurface Finish: LeadFree HASL\nRemove Order Number: Specify a location"
+          anchor: ml
+          hjustify: left
+          hoffset: 10
+      - text2:
+          type: simple
+          text: 'JLCJLCJLCJLC'
+          anchor: mr
+          hjustify: right
+          hoffset: -10
+
+
+  #
+  # JLC production stuff below
+  #
+  - name: fab_gerbers
     type: gerber
-    dir: '../gen/prod'
+    run_by_default: false
     options: &gerber_options
       exclude_edge_layer: false
       exclude_pads_from_silkscreen: false
@@ -155,8 +216,6 @@ outputs:
       line_width: 0.1
       subtract_mask_from_silk: true
     layers:
-      # Note: a more generic approach is to use 'copper' but then the filenames
-      # are slightly different.
       - F.Cu
       - B.Cu
       - Edge.Cuts
@@ -167,9 +226,9 @@ outputs:
       - B.Mask
       - B.Paste
 
-  - name: JLCPCB_drill
+  - name: fab_drill
     type: excellon
-    dir: '../gen/prod'
+    run_by_default: false
     options:
       pth_and_npth_single_file: false
       pth_id: '-PTH'
@@ -178,19 +237,19 @@ outputs:
       map: gerber
       output: "%f%i.%x"
 
-  - name: JLCPCB_netlist
+  - name: fab_netlist
     type: netlist
-    dir: '../gen/prod'
+    run_by_default: false
     options:
       format: ipc
       output: 'netlist.ipc'
 
-  - name: JLCPCB_position
+  - name: fab_position
     type: position
-    dir: '../gen/prod'
+    run_by_default: false
     options:
       format: CSV
-      output: 'positions.csv'
+      output: '_pos.csv'
       separate_files_for_front_and_back: false
       right_digits: 3
       pre_transform: _rot_footprint
