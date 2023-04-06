@@ -95,6 +95,13 @@ outputs:
       zoom: 4
 
 
+  - name: step
+    type: step
+    run_by_default: true
+    options:
+      output: 'esp_flasher.step'
+
+
   - name: ibom
     type: ibom
     run_by_default: false

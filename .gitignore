@@ -8,4 +8,5 @@ _autosave-*
 panel.*
 *-erc.txt
 *-drc.txt
+*.step
 
