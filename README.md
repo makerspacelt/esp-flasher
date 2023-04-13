@@ -14,6 +14,7 @@ Support this open-source project - buy your fully assembled and tested flasher [
 For programming and debugging without any onboard provisions in-place use one of these interfaces:
 
 * [ESP-12F interface module](http://esp-12f.makerspace.lt/repo)
+* [ESP-01 interface module](http://esp-01.makerspace.lt/repo)
 
 
 
