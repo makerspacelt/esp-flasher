@@ -35,7 +35,7 @@ run_kibot --skip-pre all --out-dir ../gen/single ibom fab_gerbers fab_drill fab_
 mkdir -p gen/panel
 rm -f ./project/panel.*
 run_kibot --skip-pre all panelize
-run_kibot --out-dir ../gen/panel --board panel.kicad_pcb ibom fab_gerbers fab_drill fab_netlist fab_position
+run_kibot --out-dir ../gen/panel --board panel.kicad_pcb ibom fab_gerbers fab_drill fab_netlist
 
 
 
@@ -57,7 +57,6 @@ rm ./gen/*rc.txt
 rm ./gen/*/*rc.txt
 
 cp -f ./gen/bom.csv ./gen/single/_bom.csv
-cp -f ./gen/bom.csv ./gen/panel/_bom.csv
 
 
 # archive 
