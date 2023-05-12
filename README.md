@@ -1,4 +1,4 @@
-![PCB 3d main](gen/img_pcb_3d_main.png)
+![PCB 3d main](media/main.jpg)
 
 
 This is ESP8266 modular flasher based on CH340 usb uart converter and USB-C port.
