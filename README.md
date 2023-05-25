@@ -1,4 +1,10 @@
-![PCB 3d main](media/main.jpg)
+<a href="LICENSE"><img src="https://badgen.net/badge/Open Source/Hardware" /></a>
+<a href="https://certification.oshwa.org/lt000003.html"><img src="https://badgen.net/badge/OSHWA/Certified" /></a>
+<a href="https://www.kicad.org/"><img src="https://badgen.net/badge/Made with/KiCAD" /></a>
+<a href="https://esp-flasher.makerspace.lt/shop"><img src="https://badgen.net/badge/We sell on/tindie/green" /></a>
+
+---
+<img src="media/main.jpg" width=50%/>
 
 
 This is ESP8266 modular flasher based on CH340 usb uart converter and USB-C port.
@@ -25,11 +31,11 @@ Dev NOTE: before commit, run `./kibot.sh` to regenerate documentation, bom, gerb
 * [ibom.html](gen/single/ibom.html)
 
 
-![PCB 2d front bare](gen/img_pcb_2d_front_bare.jpg)
-![PCB 2d back bare](gen/img_pcb_2d_back_bare.jpg)
+<img src="gen/img_pcb_2d_front_bare.jpg" width="25%" align="left"/>
+<img src="gen/img_pcb_2d_back_bare.jpg" width="25%" align="left"/>
+<img src="gen/img_pcb_3d_front.png" width="25%"/>
 
-![PCB 3d front](gen/img_pcb_3d_front.png)
-
+---
 
 
 
